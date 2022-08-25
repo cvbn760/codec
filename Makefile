@@ -30,6 +30,11 @@ CFLAGS=-fexpensive-optimizations -frename-registers -fomit-frame-pointer -ftree-
 CXXFLAGS=-fexpensive-optimizations -frename-registers -fomit-frame-pointer -ftree-vectorize -Wno-error=maybe-uninitialized -finline-functions -finline-limit=64  -fstack-protector-strong -pie -fpie -Wa,--noexecstack
 CPPFLAGS=-std=gnu99
 
+CPPFLAGS += -I hal/hdr
+CPPFLAGS += -I era/hdr
+CPPFLAGS += -I utils/hdr
+CPPFLAGS += -I utils/prop/hdr
+CPPFLAGS += -I era/hdr
 
 # c compiler flag
 CFLAGS += -Wall -Wundef -Wstrict-prototypes -g -O0
@@ -69,7 +74,7 @@ SRCS += $(wildcard src/*.cpp)
 ifneq ($(TELITBIN),)
   m2mapzname = $(TELITBIN)
 else
-  m2mapzname = era
+  m2mapzname = codec
 endif
 
 bin  = $(m2mapzname).bin

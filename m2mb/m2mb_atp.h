@@ -21,7 +21,7 @@
 
 #ifndef  M2M_M2MB_ATP_API_H
 #define  M2M_M2MB_ATP_API_H
-
+#include "m2mb_types.h"
 
 /* Global declarations ==========================================================================*/
 

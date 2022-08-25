@@ -21,7 +21,8 @@
 
 #ifndef  M2M_M2MB_ATP_PROFILE_API_H
 #define  M2M_M2MB_ATP_PROFILE_API_H
-
+#include "m2mb_types.h"
+#include "m2mb_atp.h"
 
 /* Global declarations ==========================================================================*/
 
@@ -96,7 +97,7 @@ typedef enum
   @endcode
 */
 /*-----------------------------------------------------------------------------------------------*/
-M2MB_RESULT_E m2mb_atp_profile_param_register( M2MB_ATP_HANDLE h, CHAR *paramString, M2MB_ATP_PROFILE_TYPE_E paramFlags, void *paramDefault, UINT16 paramSize );
+M2MB_RESULT_E m2mb_atp_profile_param_register(M2MB_ATP_HANDLE h, CHAR *paramString, M2MB_ATP_PROFILE_TYPE_E paramFlags, void *paramDefault, UINT16 paramSize );
 
 /*-----------------------------------------------------------------------------------------------*/
 /*!

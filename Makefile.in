@@ -1,5 +1,5 @@
 # Log settings
-LOGS_ENABLE = 1
+LOGS_ENABLE = 0
 
 # If logs are enabled, channel can be: MAIN_UART AUX_UART USB0 USB1
 LOGS_CHANNEL = AZX_LOG_TO_USB0
