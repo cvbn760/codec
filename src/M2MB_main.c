@@ -1,24 +1,13 @@
 #include "m2mb_types.h"
-#include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdio.h>
-#include "app_cfg.h"
-#include "m2mb_types.h"
-#include "azx_utils.h"
 #include "azx_log.h"
-#include <stdio.h>
-#include <string.h>
 #include "m2mb_os_api.h"
-#include "m2mb_ati.h"
 #include "at_utils.h"
-#include "azx_log.h"
-#include "app_cfg.h"
 
 static UINT8 sendAT(char *cmd);
 static BOOLEAN on_codec(void);
@@ -127,12 +116,27 @@ void M2MB_main( int argc, char **argv ) {
         AZX_LOG_ERROR( "at_cmd_sync_init() returned failure value\r\n" );
         return;
     }
+    sendAT("AT$GPSP=1\r");
+    sendAT("AT$GPSSAV\r");
     sendAT("AT#VAUX=1,1\r");
     sendAT("AT#GPIO=7,1,1\r");
     on_codec();
     send_to_codec("0220101000242000003300540000008b");
-    sendAT("AT#APLAY=1,0,\"start_test.wav\"\r");
-//    azx_sleep_ms(10000);
-//    send_to_codec("0220000000000000000000000000000b");
+    for (int i = 0; i < 10; i++){
+        m2mb_os_taskSleep( M2MB_OS_MS2TICKS(250) );
+        sendAT("ATE0\r");
+    }
+    sendAT("AT#APLAY=1,0,\"one_tone.wav\"\r");
+    m2mb_os_taskSleep( M2MB_OS_MS2TICKS(2000) );
+    retVal = at_cmd_async_deinit(instanceID);
+    if ( retVal == M2MB_RESULT_SUCCESS )
+    {
+        AZX_LOG_TRACE( "at_cmd_async_deinit() returned success value\r\n" );
+    }
+    else
+    {
+        AZX_LOG_ERROR( "at_cmd_async_deinit() returned failure value\r\n" );
+        return;
+    }
 }
 
